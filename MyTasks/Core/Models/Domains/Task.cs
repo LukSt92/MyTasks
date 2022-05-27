@@ -24,7 +24,7 @@ namespace MyTasks.Core.Models.Domains
         public int CategoryId { get; set; }
 
         [Display(Name = "Termin")]
-        public DateTime? Time { get; set; }
+        public DateTime? Term { get; set; }
 
         [Display(Name = "Zrealizowane")]
         public bool IsExecuted { get; set; }
