@@ -27,7 +27,7 @@
 </form>
 
 <div>
-    @Html.PartialAsync("_TasksTable.cshtml", Model.Tasks)
+    @await Html.PartialAsync("_TasksTable.cshtml", Model.Tasks)
 </div>
 
 @section Scripts
@@ -81,6 +81,7 @@
         }
 
         function finishTask(id, btn) {
+
         if (!confirm("Czy na pewno chcesz oznaczyć zadanie jako zrealizowane?"))
             return;
 
