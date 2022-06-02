@@ -1,16 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyTasks.Core;
 using MyTasks.Core.Models.Domains;
+using MyTasks.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace MyTasks.Persistence.Repositories
 {
-    public class TaskRepository
+    public class TaskRepository : ITaskRepository
     {
-        private ApplicationDbContext _context;
+        private IApplicationDbContext _context;
 
-        public TaskRepository(ApplicationDbContext context)
+        public TaskRepository(IApplicationDbContext context)
         {
             _context = context;
         }
@@ -47,7 +49,6 @@ namespace MyTasks.Persistence.Repositories
         public void Add(Task task)
         {
             _context.Tasks.Add(task);
-            _context.SaveChanges();
         }
 
         public void Update(Task task)
@@ -60,7 +61,6 @@ namespace MyTasks.Persistence.Repositories
             taskToUpdate.Term = task.Term;
             taskToUpdate.Title = task.Title;
 
-            _context.SaveChanges();
         }
 
         public void Delete(int id, string userId)
@@ -68,7 +68,6 @@ namespace MyTasks.Persistence.Repositories
             var taskToDelete = _context.Tasks.Single(x => x.Id == id && x.UserId == userId);
 
             _context.Tasks.Remove(taskToDelete);
-            _context.SaveChanges();
         }
 
         public void Finish(int id, string userId)
@@ -76,7 +75,6 @@ namespace MyTasks.Persistence.Repositories
             var taskToUpdate = _context.Tasks.Single(x => x.Id == id && x.UserId == userId);
 
             taskToUpdate.IsExecuted = true; ;
-            _context.SaveChanges();
         }
     }
 }
