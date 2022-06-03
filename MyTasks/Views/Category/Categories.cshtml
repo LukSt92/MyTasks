@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MyTasks.Core.Models.Domains.Category>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h1>Kategorie</h1>
+
+<div id="categoriesTable">
+    <table class="table mt-3 table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Nazwa</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model !=null && Model.Any())
+            {
+                foreach (var category in Model)
+                {
+                    <tr>
+                        <td>
+                            @category.Name
+                        </td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" 
+                                    onclick="deleteCategory('@category.Id', this)">Usuń</button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td class="text-center" colspan="2">
+                        Brak kategorii, proszę dodać nowe.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
