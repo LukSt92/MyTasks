@@ -49,9 +49,21 @@ namespace MyTasks.Persistence.Repositories
             return task;
         }
 
+        public Category GetCategory(int id, string userId)
+        {
+            var category = _context.Categories.Single(x => x.Id == id && x.UserId == userId);
+
+            return category;
+        }
+
         public void Add(Task task)
         {
             _context.Tasks.Add(task);
+        }
+
+        public void AddCategory(Category category)
+        {
+            _context.Categories.Add(category);
         }
 
         public void Update(Task task)
@@ -66,11 +78,26 @@ namespace MyTasks.Persistence.Repositories
 
         }
 
+        public void UpdateCategory(Category category)
+        {
+            var categoryToUpdate = _context.Categories.Single(x => x.Id == category.Id);
+
+            categoryToUpdate.Name = category.Name;
+        }
+
         public void Delete(int id, string userId)
         {
             var taskToDelete = _context.Tasks.Single(x => x.Id == id && x.UserId == userId);
 
             _context.Tasks.Remove(taskToDelete);
+        }
+
+        public void DeleteCategory(int id, string userId)
+        {
+            var categoryToDelete = _context.Categories.Single
+                (x => x.Id == id && x.UserId == userId);
+
+            _context.Categories.Remove(categoryToDelete);
         }
 
         public void Finish(int id, string userId)

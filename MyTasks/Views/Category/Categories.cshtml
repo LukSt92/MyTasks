@@ -5,6 +5,10 @@
 }
 
 <h1>Kategorie</h1>
+<button class="btn btn-primary mb-3"
+        onclick='window.location.href="@Url.Action("Category", "Category")"'>
+    Dodaj
+</button>
 
 <div id="categoriesTable">
     <table class="table mt-3 table-bordered">
@@ -21,7 +25,10 @@
                 {
                     <tr>
                         <td>
-                            @category.Name
+                            <a href="@Url.Action("Category", "Category", new { id = category.Id})"
+                               class="font-weight-bold">
+                                @category.Name
+                            </a>
                         </td>
                         <td>
                             <button class="btn btn-danger btn-sm" 
@@ -41,3 +48,36 @@
         </tbody>
     </table>
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+    function deleteCategory(id, btn) {
+        if (!confirm("Czy na pewno chcesz usunąć kategorię?"))
+            return;
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("DeleteCategory", "Category")",
+            data: {
+                id: id
+            },
+            success: function (data) {
+                if (data.success) {
+                    var row = btn.parentNode.parentNode;
+                    row.parentNode.removeChild(row);
+                } else {
+                    alert(data.message)
+                }
+                },
+                error: function (data) {
+                    alert(data.message)
+                },
+                dataType: "json"
+            });
+        }
+
+    </script>
+
+}

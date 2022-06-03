@@ -31,9 +31,20 @@ namespace MyTasks.Persistence.Services
             return _unitOfWork.Task.Get(id, userId);
         }
 
+        public Category GetCategory(int id, string userId)
+        {
+            return _unitOfWork.Category.GetCategory(id, userId);
+        }
+
         public void Add(Task task)
         {
             _unitOfWork.Task.Add(task);
+            _unitOfWork.Complete();
+        }
+
+        public void AddCategory(Category category)
+        {
+            _unitOfWork.Category.AddCategory(category);
             _unitOfWork.Complete();
         }
 
@@ -43,9 +54,21 @@ namespace MyTasks.Persistence.Services
             _unitOfWork.Complete();
         }
 
+        public void UpdateCategory(Category category)
+        {
+            _unitOfWork.Category.UpdateCategory(category);
+            _unitOfWork.Complete();
+        }
+
         public void Delete(int id, string userId)
         {
             _unitOfWork.Task.Delete(id, userId);
+            _unitOfWork.Complete();
+        }
+
+        public void DeleteCategory(int id, string userId)
+        {
+            _unitOfWork.Category.DeleteCategory(id, userId);
             _unitOfWork.Complete();
         }
 

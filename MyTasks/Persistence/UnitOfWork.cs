@@ -15,13 +15,17 @@ namespace MyTasks.Persistence
         {
             _context = context;
             Task = new TaskRepository(context);
+            Category = new TaskRepository(context);
         }
 
         public ITaskRepository Task { get; set; }
+
+        public ITaskRepository Category { get; set; }
 
         public void Complete()
         {
             _context.SaveChanges();
         }
+
     }
 }

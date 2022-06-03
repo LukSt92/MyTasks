@@ -12,6 +12,8 @@ namespace MyTasks.Core
 
         ITaskRepository Task { get; }
 
+        ITaskRepository Category { get;  }
+
         void Complete();
     }
 }
